@@ -41,7 +41,9 @@ services:
   log-processor:
     image: neowu/log-processor:5.2.4
     environment:
-      - JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx2048m -Xss256k -Djava.awt.headless=true -Dsys.elasticsearch.host=elasticsearch -Dsys.kafka.uri=kafka:9092
+      - JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx2048m -Xss256k -Djava.awt.headless=true 
+      - sys.elasticsearch.host=elasticsearch 
+      - sys.kafka.uri=kafka:9092
     depends_on:
       - kafka
       - elasticsearch
@@ -73,7 +75,11 @@ spec:
         image: neowu/log-processor:5.2.4
         env:
         - name: JAVA_OPTS
-          value: -XX:+UseG1GC -Xmx512m -Xss256k -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -Djava.awt.headless=true -Dcore.availableProcessors=2 -Dsys.elasticsearch.host=log-es-0.log-es -Dsys.kafka.uri=log-kafka-0.log-kafka:9092
+          value: -XX:+UseG1GC -Xmx512m -Xss256k -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -Djava.awt.headless=true -Dcore.availableProcessors=2 
+        - name: sys.elasticsearch.host
+          value: log-es-0.log-es 
+        - name: sys.kafka.uri
+          value: log-kafka-0.log-kafka:9092
         ports:
         - containerPort: 8080
         livenessProbe:
