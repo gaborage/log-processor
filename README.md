@@ -7,7 +7,7 @@ for more info please refer to [https://github.com/neowu/core-ng-project](https:/
 version: "3"
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.0
     ports:
       - 9200:9200
       - 9300:9300
@@ -18,7 +18,7 @@ services:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
       - xpack.security.enabled=false
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.0.0
+    image: docker.elastic.co/kibana/kibana:6.1.0
     ports:
       - 5601:5601
     environment:
@@ -39,11 +39,11 @@ services:
     depends_on:
       - zookeeper
   log-processor:
-    image: neowu/log-processor:5.2.4
+    image: neowu/log-processor:5.2.8
     environment:
       - JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx2048m -Xss256k -Djava.awt.headless=true 
-      - sys.elasticsearch.host=elasticsearch 
-      - sys.kafka.uri=kafka:9092
+      - SYS_ELASTICSEARCH_HOST=elasticsearch 
+      - SYS_KAFKA_URI=kafka:9092
     depends_on:
       - kafka
       - elasticsearch
@@ -72,13 +72,13 @@ spec:
         pool: ops
       containers:
       - name: log-processor
-        image: neowu/log-processor:5.2.4
+        image: neowu/log-processor:5.2.8
         env:
         - name: JAVA_OPTS
           value: -XX:+UseG1GC -Xmx512m -Xss256k -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -Djava.awt.headless=true -Dcore.availableProcessors=2 
-        - name: sys.elasticsearch.host
+        - name: SYS_ELASTICSEARCH_HOST
           value: log-es-0.log-es 
-        - name: sys.kafka.uri
+        - name: SYS_KAFKA_URI
           value: log-kafka-0.log-kafka:9092
         ports:
         - containerPort: 8080
