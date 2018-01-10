@@ -39,7 +39,7 @@ services:
     depends_on:
       - zookeeper
   log-processor:
-    image: neowu/log-processor:5.2.8
+    image: neowu/log-processor:5.2.9
     environment:
       - JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx2048m -Xss256k -Djava.awt.headless=true 
       - SYS_ELASTICSEARCH_HOST=elasticsearch 
@@ -72,7 +72,7 @@ spec:
         pool: ops
       containers:
       - name: log-processor
-        image: neowu/log-processor:5.2.8
+        image: neowu/log-processor:5.2.9
         env:
         - name: JAVA_OPTS
           value: -XX:+UseG1GC -Xmx512m -Xss256k -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -Djava.awt.headless=true -Dcore.availableProcessors=2 
