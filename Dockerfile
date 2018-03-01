@@ -8,7 +8,7 @@ FROM        openjdk:9-jre-slim
 MAINTAINER  neo
 LABEL       app=log-processor
 EXPOSE      8080
-RUN         addgroup app && adduser --no-create-home --ingroup app app
+RUN         addgroup --system app && adduser --system --no-create-home --ingroup app app
 USER        app
 WORKDIR     /opt
 COPY        --from=build /depot/core-ng-project/build/log-processor/install/log-processor /opt/log-processor
