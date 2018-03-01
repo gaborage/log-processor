@@ -1,10 +1,10 @@
-FROM        openjdk:8-jdk as build
+FROM        openjdk:9-slim as build
 RUN         apt-get install -y git
 WORKDIR     /depot
 RUN         git clone https://github.com/neowu/core-ng-project.git
 RUN         cd core-ng-project && ./gradlew -Penv=prod :log-processor:installDist
 
-FROM        openjdk:jre-alpine
+FROM        openjdk:9-jre-slim
 MAINTAINER  neo
 EXPOSE      8080
 WORKDIR     /opt
