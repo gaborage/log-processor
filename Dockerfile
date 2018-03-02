@@ -10,6 +10,5 @@ LABEL       app=log-processor
 EXPOSE      8080
 RUN         addgroup --system app && adduser --system --no-create-home --ingroup app app
 USER        app
-WORKDIR     /opt
 COPY        --from=build /depot/core-ng-project/build/log-processor/install/log-processor /opt/log-processor
 ENTRYPOINT  ["/bin/sh", "-c", "/opt/log-processor/bin/log-processor"]
