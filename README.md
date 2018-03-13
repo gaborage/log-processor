@@ -7,7 +7,7 @@ for more info please refer to [https://github.com/neowu/core-ng-project](https:/
 version: "3"
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
     ports:
       - 9200:9200
       - 9300:9300
@@ -16,14 +16,12 @@ services:
       - http.host=0.0.0.0
       - transport.host=0.0.0.0
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
-      - xpack.security.enabled=false
   kibana:
     image: docker.elastic.co/kibana/kibana:6.2.2
     ports:
       - 5601:5601
     environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - xpack.security.enabled=false
+      - ELASTICSEARCH_URL=http://elasticsearch-oss:9200
     depends_on:
       - elasticsearch
   zookeeper:
@@ -31,7 +29,7 @@ services:
     ports:
       - 2181
   kafka:
-    image: neowu/kafka:1.0.0
+    image: neowu/kafka:1.0.1
     ports:
       - 9092:9092
     environment:
