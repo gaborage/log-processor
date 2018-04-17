@@ -7,7 +7,7 @@ for more info please refer to [https://github.com/neowu/core-ng-project](https:/
 version: "3"
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
     ports:
       - 9200:9200
       - 9300:9300
@@ -17,7 +17,7 @@ services:
       - transport.host=0.0.0.0
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.2.2
+    image: docker.elastic.co/kibana/kibana:6.2.3
     ports:
       - 5601:5601
     environment:
@@ -29,7 +29,7 @@ services:
     ports:
       - 2181
   kafka:
-    image: neowu/kafka:1.0.1
+    image: neowu/kafka:1.1.0
     ports:
       - 9092:9092
     environment:
@@ -37,7 +37,7 @@ services:
     depends_on:
       - zookeeper
   log-processor:
-    image: neowu/log-processor:6.0.0
+    image: neowu/log-processor:6.1.4
     environment:
       - JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx2048m -Xss256k -Djava.awt.headless=true 
       - SYS_ELASTICSEARCH_HOST=elasticsearch 
@@ -70,7 +70,7 @@ spec:
         pool: ops
       containers:
       - name: log-processor
-        image: neowu/log-processor:6.0.0
+        image: neowu/log-processor:6.1.4
         env:
         - name: JAVA_OPTS
           value: -XX:+UseG1GC -Xmx512m -Xss256k -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -Djava.awt.headless=true -Dcore.availableProcessors=2 
